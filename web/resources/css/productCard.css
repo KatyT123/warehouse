@@ -1,0 +1,75 @@
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 8px;
+  text-align: center;
+  background-color: #f1f1f1;
+  margin: 8px;
+  height: 400px;
+  width: 300px;
+}
+.price {
+  color: grey;
+  font-size: 15px;
+  float:left;
+}
+.desc {
+    font-size: 12px;
+  float:left; 
+}
+
+.button {
+  border: none;
+  outline: 0;
+  padding: 8px;
+  color: white;
+  background-color: #000;
+  text-align: center;
+  cursor: pointer;
+  width:100%;
+  font-size: 14px;
+}
+a{
+    color: white; 
+}
+
+.button:hover {
+  opacity: 0.7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Float four columns side by side */
+img {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 60%;
+    max-height: 35%;
+    object-fit:cover;
+}
+
+/* Remove extra left and right margins, due to padding */
+.row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .item {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
