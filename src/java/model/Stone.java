@@ -6,6 +6,7 @@
 package model;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,11 +18,12 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.Size;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author chern
+ * @author Tasos
  */
 @Entity
 @Table(name = "stone")
@@ -31,8 +33,9 @@ import javax.xml.bind.annotation.XmlRootElement;
 public class Stone implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "stone_weight")
-    private String stoneWeight;
+    private BigDecimal stoneWeight;
     @Column(name = "stone_quant")
     private Integer stoneQuant;
     @Id
@@ -40,6 +43,7 @@ public class Stone implements Serializable {
     @Basic(optional = false)
     @Column(name = "stone_id")
     private Integer stoneId;
+    @Size(max = 500)
     @Column(name = "stone_desc")
     private String stoneDesc;
     @JoinColumn(name = "product_code", referencedColumnName = "product_code")
@@ -53,11 +57,11 @@ public class Stone implements Serializable {
         this.stoneId = stoneId;
     }
 
-    public String getStoneWeight() {
+    public BigDecimal getStoneWeight() {
         return stoneWeight;
     }
 
-    public void setStoneWeight(String stoneWeight) {
+    public void setStoneWeight(BigDecimal stoneWeight) {
         this.stoneWeight = stoneWeight;
     }
 

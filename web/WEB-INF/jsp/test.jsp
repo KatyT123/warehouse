@@ -1,7 +1,7 @@
 <%-- 
-    Document   : success
-    Created on : Nov 18, 2018, 5:14:41 PM
-    Author     : KATY
+    Document   : test
+    Created on : 18 Νοε 2018, 2:38:35 πμ
+    Author     : Tasos
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,6 +12,6 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Insert successed</h1>
+        <h1>test</h1>
     </body>
 </html>

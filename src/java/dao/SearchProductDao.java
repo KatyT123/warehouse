@@ -5,6 +5,7 @@
  */
 package dao;
 
+import converter.StoreConverter;
 import static java.lang.Integer.parseInt;
 import java.util.ArrayList;
 import javax.persistence.EntityManager;
@@ -12,6 +13,8 @@ import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.transaction.Transactional;
 import model.Product;
+import model.Store;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -27,63 +30,37 @@ public class SearchProductDao {
    
     @PersistenceContext
     private EntityManager em;
+    
+    @Autowired
+    private StoreConverter storeconv;
   
      public ArrayList findProductsByCategory(String catId){
          int id = parseInt(catId);
          ArrayList<Product> products = new ArrayList<>();
-         String sql = "SELECT p FROM Product p, Category c WHERE p.categoryId = c.categoryId AND c.categoryId LIKE ?";
+         String sql = "SELECT p FROM Product p, Category c WHERE p.categoryId = c.categoryId AND c.categoryId = :id";
          Query query = em.createQuery(sql);
-         query.setParameter(1, id );
+         query.setParameter("id", id );
          products = (ArrayList<Product>)query.getResultList();
          return products;
    }
-   
-   
-    
- /*   public Collection getStones(ArrayList<Product> products){
-        Collection <Stone> stones ;
-        if (products.size()!= 0){
-         Product p = products.get(0);
-         Collection <Stone> stones =  p.getStoneCollection();
-         for(Stone s: stones){
-             System.out.println(s.getStoneDscr()+"  $$  "+s.getStoneDscr());
-         }
-        for(Product p:products){
-            stones = p.getStoneCollection();
-            
-    } */
-    
-   /*public ArrayList findCategory(String catId){
-         int id = parseInt(catId);
-         ArrayList<Product> products = new ArrayList<>();
-         String sql = "SELECT p FROM Product p, Category c WHERE p.categoryId = c.categoryId AND c.categoryId LIKE ?";
+   public ArrayList fetchAllProductsByStore(int storeId){ //allagi
+         Store store = (storeconv.convert(storeId));
+         ArrayList<Product> products = new ArrayList<>(); 
+         String sql = "SELECT DISTINCT p FROM Product p, Stock s WHERE p.productCode = s.productCode AND s.storeId = :store";
          Query query = em.createQuery(sql);
-         query.setParameter(1, id );
-         products = (ArrayList<Product>)query.getResultList(); 
-         return products; } 
-    
-    public void insertAlloy(){
-        Alloy alloy = new Alloy();
-        alloy.setGoldWeight(5.6);
-        alloy.setKarats(40);
-        alloy.setSilverWeight(9.7);
-        em.persist(alloy);
-    } 
+         query.setParameter("store", store);
+         products = (ArrayList<Product>)query.getResultList();
+         return products;
+    }
 
-   /* public void insertProduct() {
-        Product product = new Product();
-        Producer producer = new Producer();
-        Category category = new Category();
-        Alloy alloy = new Alloy();
-        producer.setProducerCode("1");
-        alloy.setAlloyId(1);
-        category.setCategoryId(1);
-        product.setCategoryId(category);
-        product.setProductCode("ab1234");
-        product.setAlloyId(alloy);
-        product.setProduserCode(producer);
-         em.persist(product);
-    } */
-   
+    public Product fetchByPcode(String pcode) {
+        String sql = "Select p From Product p Where p.productCode = :pcode";
+        Query query = em.createQuery(sql);
+        query.setParameter("pcode", pcode);
+        Product p = (Product) query.getSingleResult();
+        return p;
+    }
+    
+    
      
 }

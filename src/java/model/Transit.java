@@ -24,7 +24,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  *
- * @author chern
+ * @author Katy
  */
 @Entity
 @Table(name = "transit")
@@ -130,7 +130,7 @@ public class Transit implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Transit[ transitId=" + transitId + " ]";
+        return "" + transitId ;
     }
     
 }

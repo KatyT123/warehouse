@@ -97,7 +97,7 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Category[ categoryId=" + categoryId + " ]";
+        return "" + categoryId ;
     }
     
 }

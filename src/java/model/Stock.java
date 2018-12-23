@@ -36,9 +36,10 @@ public class Stock implements Serializable {
     private static final long serialVersionUID = 1L;
     @Column(name = "quantity")
     private Integer quantity;
-    @Column(name = "time")
+    @Basic(optional = true)                                         //allagi
+    @Column(name = "currentdate")
     @Temporal(TemporalType.TIMESTAMP)
-    private Date time;
+    private Date currentdate;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
@@ -58,6 +59,11 @@ public class Stock implements Serializable {
         this.stockId = stockId;
     }
 
+    public Stock(Integer stockId, Date currentdate) {
+        this.stockId = stockId;
+        this.currentdate = currentdate;
+    }
+
     public Integer getQuantity() {
         return quantity;
     }
@@ -66,12 +72,12 @@ public class Stock implements Serializable {
         this.quantity = quantity;
     }
 
-    public Date getTime() {
-        return time;
+    public Date getCurrentdate() {
+        return currentdate;
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setCurrentdate(Date currentdate) {
+        this.currentdate = currentdate;
     }
 
     public Integer getStockId() {

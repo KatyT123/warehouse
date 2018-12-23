@@ -1,0 +1,92 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : Dec 11, 2018, 1:06:39 PM
+    Author     : Katy
+*/
+.card {
+  padding: 8px;
+  text-align: center;
+  background-color: #f2f2f2;
+  margin: 8px;
+  height: 800px;
+  width: 600px;
+  border-color:black;
+}
+.price {
+  font-size: 15px;
+  float:left;
+}
+.desc {
+    font-size: 15px;
+    float:left; 
+}
+
+.button {
+  border: none;
+  outline: 0;
+  padding: 8px;
+  color: white;
+  background-color: black;
+  text-align: center;
+  cursor: pointer;
+  width:100%;
+  font-size: 14px;
+}
+a{
+    color: white; 
+}
+
+.button:hover {
+  opacity: 0.7;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Float four columns side by side */
+img {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: 40%;
+    max-height: 25%;
+    object-fit:cover;
+}
+.links {
+  background-color:darkslategray;
+  text-align: center;
+  cursor: pointer;
+  width:35%;
+  font-size: 22px;
+  float:left;
+                }
+
+/* Remove extra left and right margins, due to padding */
+.row {margin: 0 -5px;}
+
+/* Clear floats after the columns */
+.row:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+  .item {
+    width: 100%;
+    display: block;
+    margin-bottom: 20px;
+  }
+}
+

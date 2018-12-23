@@ -16,12 +16,13 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author chern
+ * @author Katy
  */
 @Entity
 @Table(name = "store")
@@ -29,6 +30,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Store.findAll", query = "SELECT s FROM Store s")})
 public class Store implements Serializable {
+
+    @Column(name = "force_pass_change")
+    private Boolean forcePassChange;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -47,6 +51,17 @@ public class Store implements Serializable {
     private Collection<Transit> transitCollection1;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "storeId")
     private Collection<Stock> stockCollection;
+    
+    @Transient                      //allagh
+   private String confirmpassword;
+
+   public String getConfirmpassword() {
+       return confirmpassword;
+   }
+
+   public void setConfirmpassword(String confirmpassword) {
+       this.confirmpassword = confirmpassword;
+   }
 
     public Store() {
     }
@@ -136,7 +151,15 @@ public class Store implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Store[ storeId=" + storeId + " ]";
+        return "" + storeId ;
+    }
+
+    public Boolean getForcePassChange() {
+        return forcePassChange;
+    }
+
+    public void setForcePassChange(Boolean forcePassChange) {
+        this.forcePassChange = forcePassChange;
     }
     
 }

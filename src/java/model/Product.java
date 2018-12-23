@@ -11,6 +11,7 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -24,7 +25,7 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author chern
+ * @author Katy
  */
 @Entity
 @Table(name = "product")
@@ -58,9 +59,9 @@ public class Product implements Serializable {
     @JoinColumn(name = "producer_code", referencedColumnName = "producer_code")
     @ManyToOne(optional = false)
     private Producer producerCode;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productCode")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productCode", fetch = FetchType.EAGER)
     private Collection<Stock> stockCollection;
-    @OneToMany(mappedBy = "productCode")
+    @OneToMany(mappedBy = "productCode", fetch = FetchType.EAGER)
     private Collection<Stone> stoneCollection;
 
     public Product() {
@@ -182,7 +183,7 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Product[ productCode=" + productCode + " ]";
+        return "" + productCode ;
     }
     
 }

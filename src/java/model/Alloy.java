@@ -118,7 +118,7 @@ public class Alloy implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Alloy[ alloyId=" + alloyId + " ]";
+        return "" + alloyId ;
     }
     
 }

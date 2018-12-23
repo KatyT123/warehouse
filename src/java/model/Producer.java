@@ -94,7 +94,7 @@ public class Producer implements Serializable {
 
     @Override
     public String toString() {
-        return "model.Producer[ producerCode=" + producerCode + " ]";
+        return "" + producerCode ;
     }
     
 }

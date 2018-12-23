@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author chern
+ * @author Katy
  */
 @Component
 public class WrappedProduct {
