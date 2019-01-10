@@ -1,13 +1,12 @@
 package controller;
 
 import dao.AlloyDao;
-import dao.CategoryDao;
 import dao.ProducerDao;
 import dao.ProductDao;
 import dao.StoneDao;
-import dao.StoreDao;
 import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import wrapper.WrapperStock;
 import java.io.IOException;
@@ -16,8 +15,6 @@ import java.util.List;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-import model.Alloy;
-import model.Category;
 import wrapper.WrapperProduct;
 import model.Producer;
 import model.Product;
@@ -40,41 +37,18 @@ public class ProductController {
     
     @Autowired
     private ProductValidator productvalidator;
-    
-    
-    
     @Autowired 
     ServletContext servletContext;
-    
-    
-     @Autowired
-     private AlloyDao alloydao;
-    
-     @Autowired
-     private ProductDao productDao;
-    
     @Autowired
-     private CategoryDao categoryDao;
-    
+    private AlloyDao alloydao;
     @Autowired
-     private ProducerDao producerDao;
-    
-    
-    
+    private ProductDao productDao;
     @Autowired
-    private StoreDao storeDao;
-    
+    private ProducerDao producerDao;
     @Autowired
     private StoneDao stonedao;
     
-    
-   @RequestMapping(value="/LoginController.htm", method=RequestMethod.POST)
-    public String doLogin(ModelMap map) throws IOException{
-        
-        //alloydao.addAlloy();
-        
-             return "index";
-    }
+   
     @RequestMapping(value="/creator.htm", method=RequestMethod.GET)
     public String createProductInStore(ModelMap map) throws IOException{
        
@@ -88,9 +62,7 @@ public class ProductController {
         map.addAttribute("weight",weight);
         List quantity = new ArrayList();
         map.addAttribute("quantity",quantity);
-       
-        
-             return "CreatePro";
+        return "CreatePro";
     }
     
     
@@ -98,73 +70,60 @@ public class ProductController {
     public String characteristicsOfproductCreation(@Valid @ModelAttribute("combined") WrapperProduct combined, BindingResult bindingResult,ModelMap map,@RequestParam(value="stoneDescr") List stoneDescr,
             @RequestParam(value="weight") List weights,@RequestParam(value="quantity") List quantities,@RequestParam CommonsMultipartFile file,HttpSession session) throws IOException{
         
-        String name=file.getName(); 
+       
+        if(bindingResult.hasErrors()) return "CreatePro";
+        else{
+             writeIntoFile(file);  
+             Product pr=combined.getProduct();
+             productvalidator.validate(productDao.findproduct(pr.getProductCode()), bindingResult);
+             alloydao.addAlloy(combined.getAlloy());
+             productDao.addnewProductToDatabase(SetNewProduct(file, combined));
+             stonedao.addStone(NewStone(pr),stoneDescr,weights,quantities);
+             map.addAttribute("mystock", new WrapperStock());
+             map.addAttribute("creation",pr);       
+             return "stock";
+        }
+    }
+    
+    public void writeIntoFile(CommonsMultipartFile file) throws FileNotFoundException, IOException{
         String filename = file.getOriginalFilename();
         if(!file.isEmpty()){
             byte[] bytes = file.getBytes();  
-        BufferedOutputStream stream =new BufferedOutputStream(new FileOutputStream(  
-         new File(UPLOAD_DIRECTORY + File.separator + filename))); //anti gia UPLOAD_DIRECTORY evaze to path giati??
-            
+            BufferedOutputStream stream =new BufferedOutputStream(new FileOutputStream(  
+            new File(UPLOAD_DIRECTORY + File.separator + filename))); 
             stream.write(bytes);  
             stream.flush();  
             stream.close();  
-        }         
-        
-                
-        Category cat=combined.getCategory();
-        
-        Product pr=combined.getProduct();
-        String pcode=pr.getProductCode();
-        
-        if(filename.equals("")){
-           pr.setImg("noimage.png");
-       }else{
-          pr.setImg(filename);
-       }
-        
-        productvalidator.validate(productDao.findproduct(pcode), bindingResult);
-        if(bindingResult.hasErrors()){
-           
-            return "CreatePro";
-        }
-        else{
-    
-        
-        pr.setCategoryId(cat);
-        
-        
-        Producer producer=combined.getProducer();
-        pr.setProducerCode(producer);
-        
-        Alloy alloy=combined.getAlloy();
-        pr.setAlloyId(alloy);
-        
-        Stone stone = new Stone();
-        stone.setProductCode(pr);
-        
-        
-        alloydao.addAlloy(alloy);
-        productDao.addnewProductToDatabase(pr);
-        stonedao.addStone(stone,stoneDescr,weights,quantities);
-        
-        }  
-        
-        
-        WrapperStock mystock= new WrapperStock();
-        map.addAttribute("mystock", mystock);
-        map.addAttribute("creation",pr);
-                    
-    return "stock";
+        }   
     }
     
+    public Product setProductImage(Product pr,CommonsMultipartFile file ){
+         String filename = file.getOriginalFilename();
+         if(filename.equals("")){
+           pr.setImg("noimage.png");
+         }
+         else{
+           pr.setImg(filename);
+         }
+         return pr;
+    }
     
+    public Product SetNewProduct(CommonsMultipartFile file, WrapperProduct combined ){
+          Product pr=combined.getProduct();
+          pr = setProductImage(pr,file);
+          pr.setCategoryId(combined.getCategory());
+          pr.setProducerCode(combined.getProducer());
+          pr.setAlloyId(combined.getAlloy());
+          return pr;
+    }
     
-    
-    
-    
-    
-    
-    
+    public Stone NewStone(Product pr){
+         Stone stone = new Stone();
+         stone.setProductCode(pr);
+         return stone;
+        
+    }
+      
            
 }
 

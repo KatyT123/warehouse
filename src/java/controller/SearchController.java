@@ -30,10 +30,8 @@ public class SearchController {
     
     @Autowired
     private WrapperProductDao wrapperdao;
-    
     @Autowired
     private SearchProductDao searchPrdao;
-    
     @Autowired
     private StockDao stockdao;
     
@@ -46,6 +44,7 @@ public class SearchController {
             return "productsTable"; 
    
     }
+    
     @RequestMapping(value = "/zoomProduct/{productCode}.htm", method = RequestMethod.GET )
     public String ZoomProduct(ModelMap model, @PathVariable("productCode") String pcode, HttpSession session){ 
         
@@ -56,6 +55,7 @@ public class SearchController {
             model.addAttribute("stock", stockdao.getStock(pcode,storeId));
             return "zoomProduct"; 
     }  
+    
     @RequestMapping(value = "/searchById.htm", method = RequestMethod.GET )
     public String SearchById(ModelMap model, @ModelAttribute("pcode") String pcode, HttpSession session){ 
             

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
- * @author Tasos
+ * @author Katy
  */
 @Controller
 public class LogoutController {

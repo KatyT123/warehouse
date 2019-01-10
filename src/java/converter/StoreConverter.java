@@ -26,5 +26,11 @@ public class StoreConverter implements Converter <Integer, Store>{
         return storedao.findstore(s);
     }
     
+    public Store convertWithoutDb(Integer s){
+        Store store = new Store();
+        store.setStoreId(s);
+        return store;
+    }
+    
     
 }

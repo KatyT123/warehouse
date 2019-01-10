@@ -42,11 +42,12 @@ public class StockAjaxController {
         int storeId = (int) session.getAttribute("storeId");
         int currentquant = stockdao.getStock(pcode,storeId).getQuantity();
         stockdao.updateNewStock(pcode,Integer.parseInt(newquant),storeId);
-        int toupdatequant = currentquant + Integer.parseInt(newquant);                      //allagi 
+        int toupdatequant = currentquant + Integer.parseInt(newquant);                  
         stockdao.updateNewStock(pcode,toupdatequant,storeId);
         Stock stock = stockdao.getStock(pcode, storeId);
         return mapper.writeValueAsString(stock.getQuantity());
     }  
+    
     @RequestMapping(value = "/substractStock/{pcode}/{newquant}", method = RequestMethod.GET, headers = "Accept= */*")
     public @ResponseBody String SubstractStckAndCurrentStock(ModelMap model, @PathVariable("pcode") String pcode, @PathVariable("newquant") String newquant, HttpSession session ) throws JsonProcessingException{ 
         
@@ -54,13 +55,14 @@ public class StockAjaxController {
         int storeId = (int) session.getAttribute("storeId");
         int currentquant = stockdao.getStock(pcode,storeId).getQuantity();
         int toupdatequant = currentquant - Integer.parseInt(newquant);
-        if (toupdatequant > 0){                                                                //allagi 
+        if (toupdatequant > 0){                                                            
              stockdao.updateNewStock(pcode,toupdatequant,storeId);
              Stock stock = stockdao.getStock(pcode, storeId);
              return mapper.writeValueAsString(stock.getQuantity());
         }  
         else return mapper.writeValueAsString(currentquant);
     }
+    
     @RequestMapping(value = "/otherStoresStock/{pcode}", method = RequestMethod.GET, headers = "Accept= */*")
     public @ResponseBody String SearchStockOfOtherStores(ModelMap model, @PathVariable("pcode") String pcode, HttpSession session ) throws JsonProcessingException{ 
         
@@ -78,6 +80,7 @@ public class StockAjaxController {
         
         return mapper.writeValueAsString(ajaxresults);
     } 
+    
     @RequestMapping(value = "/ajaxsearch.htm",method=RequestMethod.GET,headers="Accept=*/*",produces="application/json")
    public @ResponseBody String returnstock(@RequestParam("text2") String text) throws JsonProcessingException{
 

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author chern
+ * @author Katy
  */
 @Component
 public class ProductConverter implements Converter<String, Product>{
@@ -23,5 +23,11 @@ public class ProductConverter implements Converter<String, Product>{
     @Override
     public Product convert(String s) {
        return productdao.GetProduct(s);
+    }
+    
+    public Product convertWithoutDb(String s){
+        Product product = new Product();
+        product.setProductCode(s);
+        return product;
     }
 }

@@ -63,7 +63,7 @@
                             </c:choose>    
                            <img src="/images/${current.product.img}" alt="ProductImage" style="width:100%">
                            <p class="price">Stone: ${current.prview.stoneDesc}</p> 
-                           <p class="desc">Gold: <c:if test="${current.alloy.goldWeight > 0}"><span> ${current.alloy.silverWeight}</span></c:if>Silver: <c:if test="${current.alloy.silverWeight > 0}"><span>${current.alloy.silverWeight}</span> </c:if> </p> 
+                           <p class="desc">Gold: <c:if test="${current.alloy.goldWeight > 0}"><span> ${current.alloy.goldWeight}</span></c:if>Silver: <c:if test="${current.alloy.silverWeight > 0}"><span>${current.alloy.silverWeight}</span> </c:if> </p> 
                            <p class="desc">Producer: ${current.producer.producerName}</p>
                            <p class="price">Price:  ${current.product.price}</p>
                            <p class="price">Product code: ${current.product.productCode}</p>

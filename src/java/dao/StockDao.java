@@ -13,7 +13,7 @@ public interface StockDao {
      
      public void addnewStockToDatabase(Stock stock);
      
-     public void insertOtherStockProductToOtherStore(Stock stock,String product,int i,int l);
+     public void insertOtherStockProductToOtherStore(Stock stock,String product);
      
      public List returnAllStock();
      

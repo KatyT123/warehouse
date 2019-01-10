@@ -7,7 +7,10 @@ package dao;
 
 import converter.AlloyConverter;
 import converter.ProducerConverter;
+import helper.MyBinarySearch;
 import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 import model.Alloy;
 import model.Producer;
 import model.Product;
@@ -37,7 +40,7 @@ public class WrapperProductDao {
    
 
     public ArrayList<WrappedProduct> GetWrappedPr(ArrayList<Product> products) {
-        
+        long startTime = System.currentTimeMillis();
         ArrayList<WrappedProduct> wrappedpr = new ArrayList<>();
         
          for (Product p: products){
@@ -48,6 +51,9 @@ public class WrapperProductDao {
              wrapped.setPrview(findProductView(p));
              wrappedpr.add(wrapped);
          }
+         long stopTime = System.currentTimeMillis(); 
+         long elapsedTime = stopTime - startTime; //test time stop
+         System.out.println("2: "+elapsedTime);
          return wrappedpr;
     }
 
@@ -60,18 +66,16 @@ public class WrapperProductDao {
           return wrapped;
     }
 
-    private Alloy findAlloy(Product p) {
-        
-       ArrayList<Alloy> alloys = alloydao.fetchAlloys();
-       Alloy alloy = new Alloy();
-       for(Alloy a : alloys){
-           if (p.getAlloyId().getAlloyId().equals(a.getAlloyId())){
-               alloy = a;
-               break;
-           }}
-       return alloy;
+   private Alloy findAlloy(Product p) {
+       Comparator <Alloy> c = new Comparator<Alloy>(){public int compare(Alloy a, Alloy a1) {
+          return (a.getAlloyId() - a1.getAlloyId());
+          } 
+       };
+       List<Alloy> alloys = alloydao.fetchAlloys();
+       return MyBinarySearch.getObjectWithBinarySearch(alloys, p.getAlloyId(), c);
+     
     }
-
+    
     private Producer findProducer(Product p) {
         
          ArrayList<Producer> producers = producerdao.getProducers();

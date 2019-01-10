@@ -26,22 +26,18 @@ public class fileUploadAjax {
     
     
     @RequestMapping(value = "fileUpload", method = RequestMethod.POST)
-    public ResponseEntity<String> fileUpload(@RequestParam CommonsMultipartFile file)
-            throws IOException {
+    public ResponseEntity<String> fileUpload(@RequestParam CommonsMultipartFile file) throws IOException {
         
-        String k="ss";
         // Save file on system
         if (!file.getOriginalFilename().isEmpty()) {
             BufferedOutputStream outputStream = new BufferedOutputStream(
-                    new FileOutputStream(
-                    new File("C:/Tomcat/webapps/images", file.getOriginalFilename())));
+            new FileOutputStream(new File("C:/Tomcat/webapps/images", file.getOriginalFilename())));
             outputStream.write(file.getBytes());
             outputStream.flush();
             outputStream.close();
-        } else {
-            return new ResponseEntity<>("Invalid file.", HttpStatus.BAD_REQUEST);
-        }
-
+        } 
+        else  return new ResponseEntity<>("Invalid file.", HttpStatus.BAD_REQUEST);
+        
         return new ResponseEntity<>("File Uploaded Successfully.", HttpStatus.OK);
     }
 }

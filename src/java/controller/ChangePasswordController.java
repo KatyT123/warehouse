@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 /**
  *
- * @author Tasos
+ * @author Katy
  */
 @Controller
 public class ChangePasswordController {
@@ -26,10 +26,7 @@ public class ChangePasswordController {
         
         String k="efe";
         String username=(String)session.getAttribute("username");
-        
-        
         storeDao.updatePasswordForFirstTimeAndBoolean(username, password);
-            
-      return "forward:/homeController.htm";  
+        return "forward:/homeController.htm";  
     }
 }

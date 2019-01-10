@@ -19,7 +19,6 @@ import model.Producer;
 import model.Product;
 import model.Store;
 import model.WrappedProduct;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -61,12 +60,17 @@ public class HomeController {
     
     @RequestMapping(value="/homeController.htm", method = RequestMethod.POST)
     public String storeItems(ModelMap model, HttpSession session){
+        long startTime = System.currentTimeMillis();
          int storeId = (int) session.getAttribute("id");
          session.setAttribute("storeId",storeId);
          fillApplicationContext();
          model.addAttribute("wrapped", fetchAllProducts(storeId));
+         long stopTime = System.currentTimeMillis(); 
+         long elapsedTime = stopTime - startTime; //test time stop
+         System.out.println("1: "+elapsedTime);
          return "homepage";
 }
+    
     public ArrayList fetchAllProducts(int storeId){
         
         ArrayList<Product> products = searchPrdao.fetchAllProductsByStore(storeId);

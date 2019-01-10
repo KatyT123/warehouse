@@ -59,9 +59,9 @@ public class Product implements Serializable {
     @JoinColumn(name = "producer_code", referencedColumnName = "producer_code")
     @ManyToOne(optional = false)
     private Producer producerCode;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productCode", fetch = FetchType.EAGER)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "productCode", fetch = FetchType.LAZY)
     private Collection<Stock> stockCollection;
-    @OneToMany(mappedBy = "productCode", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "productCode", fetch = FetchType.LAZY)
     private Collection<Stone> stoneCollection;
 
     public Product() {
@@ -185,5 +185,5 @@ public class Product implements Serializable {
     public String toString() {
         return "" + productCode ;
     }
-    
+
 }

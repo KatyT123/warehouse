@@ -20,22 +20,16 @@ public class StoneDaoImp implements StoneDao{
         
         for(int i=0; i<stoneDescr.size(); i++){
             if(!stoneDescr.get(i).equals("") && !weights.get(i).equals("") && !quantities.get(i).equals("")){
-                
-                String descr=(String) stoneDescr.get(i); 
+                 
                 String w=weights.get(i).toString();
-                BigDecimal bd= new BigDecimal(w);
-                String qu=quantities.get(i).toString();
-                float quant = Float.parseFloat(qu);      
-                int q=(int) quant;                     
-                    stone.setStoneDesc(descr);
-                    stone.setStoneWeight(bd);
-                    stone.setStoneQuant(q);
-                    em.merge(stone);
-            }
-            
-        }
-        
-        
+                String qu=quantities.get(i).toString();     
+                int q=(int) Float.parseFloat(qu);                     
+                stone.setStoneDesc((String) stoneDescr.get(i));
+                stone.setStoneWeight(new BigDecimal(w));
+                stone.setStoneQuant(q);
+                em.merge(stone);
+            } 
+        }  
     }
     
     

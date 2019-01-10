@@ -8,6 +8,7 @@ package model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Collection;
+import java.util.Comparator;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -23,14 +24,14 @@ import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
- * @author chern
+ * @author Katy
  */
 @Entity
 @Table(name = "alloy")
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Alloy.findAll", query = "SELECT a FROM Alloy a")})
-public class Alloy implements Serializable {
+public class Alloy implements Serializable, Comparator<Alloy> {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -120,5 +121,11 @@ public class Alloy implements Serializable {
     public String toString() {
         return "" + alloyId ;
     }
-    
+
+    @Override
+    public int compare(Alloy a, Alloy a1) {
+       return (a.alloyId - a1.alloyId); 
+    }
+
+   
 }

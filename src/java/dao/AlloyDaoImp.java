@@ -2,6 +2,7 @@ package dao;
 
 
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -32,11 +33,11 @@ public class AlloyDaoImp implements AlloyDao{
          return alloy;
    }
     @Override
-    public ArrayList<Alloy> fetchAlloys() {
+    public List<Alloy> fetchAlloys() {
           
         String sql = "SELECT a FROM Alloy a ";
         Query query = em.createQuery(sql);
-        ArrayList<Alloy> alloys = (ArrayList<Alloy>) query.getResultList();
+        List<Alloy> alloys = (List<Alloy>) query.getResultList();
         return alloys;
     }
     

@@ -54,26 +54,18 @@ public class StockDaoImp implements StockDao{
     
     @Transactional
     @Override
-    public void insertOtherStockProductToOtherStore(Stock stock,String pcode,int i,int l){
+    public void insertOtherStockProductToOtherStore(Stock stock,String pcode){
       
-        Product product = new Product();
-        product.setProductCode(pcode);
-        Store store=new Store();
-        store.setStoreId(i);
-        
-        Stock stock1=new Stock();
-        stock1.setProductCode(product);
-        stock1.setStoreId(store);
-        stock1.setQuantity(0);
-        em.persist(stock1); //gemisma tou 2ou katasthmatos me quantity 0
-        
-        
-        store.setStoreId(l);
-        Stock stock2=new Stock();
-        stock2.setProductCode(product);
-        stock2.setStoreId(store);
-        stock2.setQuantity(0);
-        em.persist(stock2); //gemisma tou 3ou katasthmatos me quantity 0
+        ArrayList<Store> stores = storedao.getStores();
+        for(Store s : stores){
+            if(s.getStoreId()!= stock.getStoreId().getStoreId()){
+               Stock stock1=new Stock();
+               stock1.setProductCode(prconv.convertWithoutDb(pcode));
+               stock1.setStoreId(storeconv.convertWithoutDb(s.getStoreId()));
+               stock1.setQuantity(0);
+               em.persist(stock1); 
+            }
+        }
     }
     
     @Transactional 
@@ -157,7 +149,7 @@ public class StockDaoImp implements StockDao{
          stock.setStoreId(storeconv.convert(storeId));
          return stock;
     }
-       //allagi sto query
+      
     @Override
     public Stock getStock(String pcode, int storeId) {
         

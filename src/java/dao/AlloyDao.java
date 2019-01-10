@@ -1,7 +1,7 @@
 
 package dao;
 
-import java.util.ArrayList;
+import java.util.List;
 import model.Alloy;
 
 
@@ -14,6 +14,6 @@ public interface AlloyDao {
       
       public Alloy GetAlloy(Integer alloyId);
       
-      public ArrayList<Alloy> fetchAlloys();
+      public List<Alloy> fetchAlloys();
       
 }

@@ -18,17 +18,15 @@ import validator.StoreValidator2;
 
 /**
  *
- * @author Tasos
+ * @author Katy
  */
 @Controller
 public class LoginController {
     
      @Autowired
      private StoreDao storeDao;
-     
      @Autowired
      private StoreValidator2 storeValidator2;
-     
      @Autowired
      private StoreValidator storeValidator;
 
@@ -46,12 +44,11 @@ public class LoginController {
          @RequestMapping(value="/handleLogin.htm", method=RequestMethod.POST)
     public String loginStore(@Valid @ModelAttribute("emptystore") Store store ,BindingResult bindingResult,ModelMap map,HttpSession session) throws IOException{
         
-     if(storeValidator.validateusername(store.getUsername())&&storeValidator.validatePassword(store.getPassword())){  //allagh
+     if(storeValidator.validateusername(store.getUsername())&&storeValidator.validatePassword(store.getPassword())){  
         if(storeDao.searchForStoreByUsernameAndPassword(store)==null){
             Store store1= new Store();
             storeValidator2.validate(store1, bindingResult);
             if(bindingResult.hasErrors()){
-           
             return "loginForm";
             }
         }
@@ -59,17 +56,16 @@ public class LoginController {
         else{
             if (BCrypt.checkpw(store.getPassword(), storeDao.searchForStoreByUsernameAndPassword(store))){ //ean tairiazei to password me auto sth vash..
                 int id=storeDao.getIdFormDb(store);
-                
                 session.setAttribute("id", id);
                 session.setAttribute("username",store.getUsername());
                 
                 if(storeDao.returnForcePassChangeFromDb(store)){ //ean einai 1 tha mpei sthn if...1 shmainei oti einai tou admin kai tha allaxei apo 1 se 0 h boolean sth vash
                     
-                    return "changepassword"; //homeController.htm edw theloume na mas 
+                    return "changepassword";  
                    
                 }else{
                     
-                    return "forward:/homeController.htm";//Sunexeia Katerina!!!ALLAGH ths index me th selida ths katerinas...
+                    return "forward:/homeController.htm";
                }
             
             }

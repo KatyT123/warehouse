@@ -11,7 +11,6 @@
         </script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link href="<c:url value= "/resources/css/Style2.css "/>" rel="stylesheet">
-        <link href="<c:url value= "/resources/css/Carosel.css "/>" rel="stylesheet">
         
         <title>JSP Page</title>
         <style>
