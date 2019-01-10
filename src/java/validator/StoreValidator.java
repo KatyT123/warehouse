@@ -9,7 +9,7 @@ import org.springframework.validation.Validator;
 
 /**
  *
- * @author Tasos
+ * @author chern
  */
 @Component
 public class StoreValidator implements Validator{

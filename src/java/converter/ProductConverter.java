@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 
 /**
  *
- * @author Katy
+ * @author chern
  */
 @Component
 public class ProductConverter implements Converter<String, Product>{

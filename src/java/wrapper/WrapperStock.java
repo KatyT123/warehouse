@@ -1,10 +1,8 @@
 package wrapper;
 
-import model.Product;
+
 import model.Product;
 import model.Stock;
-import model.Stock;
-import model.Store;
 import model.Store;
 
 

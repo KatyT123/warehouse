@@ -18,7 +18,7 @@ import validator.StoreValidator2;
 
 /**
  *
- * @author Katy
+ * @author chern
  */
 @Controller
 public class LoginController {

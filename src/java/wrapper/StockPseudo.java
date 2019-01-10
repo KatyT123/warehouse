@@ -7,7 +7,7 @@ package wrapper;
 
 /**
  *
- * @author Tasos
+ * @author chern
  */
 public class StockPseudo {
     

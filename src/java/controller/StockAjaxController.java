@@ -25,7 +25,7 @@ import wrapper.StockPseudo;
 
 /**
  *
- * @author Katy
+ * @author chern
  */
 @RestController
 public class StockAjaxController {

@@ -10,7 +10,7 @@ import java.util.List;
 
 /**
  *
- * @author Katy
+ * @author chern
  */
 public class MyBinarySearch {
     

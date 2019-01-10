@@ -15,11 +15,11 @@ public class StoreValidator3 implements Validator{
 
     @Override
     public void validate(Object o, Errors errors) {
-        Boolean i=false;
+        Boolean flag=false;
          Store store = (Store)o;
          store.getConfirmpassword();
         if((store.getPassword()).equals(store.getConfirmpassword())){
-            i=true;
+            flag=true;
         }
         else{
             errors.rejectValue("password","confirmation.fail");

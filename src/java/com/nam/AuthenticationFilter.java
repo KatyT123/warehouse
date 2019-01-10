@@ -18,7 +18,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Katy
+ * @author chern
  */
 public class AuthenticationFilter implements Filter{
 

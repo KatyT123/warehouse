@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 /**
  *
- * @author KATY
+ * @author chern
  */
 @Controller
 public class SearchController {
